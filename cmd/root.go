@@ -23,6 +23,7 @@ func init() {
 	cobra.OnInitialize(initConfig)
 
 	rootCmd.AddCommand(configCmd)
+	rootCmd.AddCommand(releaseCmd)
 }
 
 func er(msg interface{}) {
