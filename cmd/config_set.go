@@ -8,7 +8,7 @@ import (
 
 var (
 	configSetCmd = &cobra.Command{
-		Use:   "set <key> <value>",
+		Use:  "set <key> <value>",
 		Args: cobra.ExactArgs(2),
 		Run: func(cmd *cobra.Command, args []string) {
 			viper.Set(args[0], args[1])
