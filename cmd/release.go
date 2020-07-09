@@ -115,13 +115,33 @@ func (r *ReleaseCommand) createReleasePullRequest(rlsDate string, rlsBranch stri
 }
 
 func (r *ReleaseCommand) updateReleasePullRequestBodyWithTickets(prNum int) {
+	_, _, err := r.client.PullRequests.Edit(
+		r.ctx,
+		r.owner,
+		r.repository,
+		prNum,
+		&github.PullRequest{
+			Body: r.newPullRequestBodyFromCommits(prNum),
+		})
+
+	if err != nil {
+		er(err)
+	}
+}
+
+func (r *ReleaseCommand) newPullRequestBodyFromCommits(prNum int) *string {
 	cmts, _, err := r.client.PullRequests.ListCommits(r.ctx, r.owner, r.repository, prNum, nil)
 	if err != nil {
 		er(err)
 	}
 
+	var newPRBody string
+	reg, _ := regexp.Compile("\\[\\w+\\-\\d+\\]")
 	for _, cmt := range cmts {
-		r := regexp.MustCompile(`\[\w+\-\d+\]`)
-		r.FindStringSubmatch(*cmt.Commit.Message)
+		if reg.MatchString(*cmt.Commit.Message) {
+			newPRBody += *cmt.Commit.Message + "\n"
+		}
 	}
+
+	return &newPRBody
 }
