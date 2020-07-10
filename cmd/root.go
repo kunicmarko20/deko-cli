@@ -11,7 +11,8 @@ import (
 
 var (
 	rootCmd = &cobra.Command{
-		Use: "deko-cli",
+		Use:     "deko-cli",
+		Version: "0.1.0",
 	}
 )
 

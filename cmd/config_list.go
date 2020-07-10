@@ -8,7 +8,8 @@ import (
 
 var (
 	configListCmd = &cobra.Command{
-		Use: "list",
+		Use:   "list",
+		Short: "Lists all saved config",
 		Run: func(cmd *cobra.Command, args []string) {
 			for key, value := range viper.AllSettings() {
 				fmt.Println(key + ": " + value.(string))

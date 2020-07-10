@@ -10,8 +10,10 @@ import (
 
 var (
 	releaseCmd = &cobra.Command{
-		Use: "release",
-		Run: NewReleaseCommand().Run,
+		Use:     "release",
+		Aliases: []string{"r"},
+		Short:   "Creates release branch and a PR in current git repository",
+		Run:     NewReleaseCommand().Run,
 	}
 )
 

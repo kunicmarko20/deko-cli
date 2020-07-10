@@ -9,8 +9,9 @@ import (
 
 var (
 	configSetCmd = &cobra.Command{
-		Use:  "set <key> <value>",
-		Args: cobra.ExactArgs(2),
+		Use:   "set <key> <value>",
+		Short: "Creates or Updates a config.",
+		Args:  cobra.ExactArgs(2),
 		Run: func(cmd *cobra.Command, args []string) {
 			viper.Set(args[0], args[1])
 			err := viper.WriteConfig()

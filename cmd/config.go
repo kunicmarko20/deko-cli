@@ -4,7 +4,8 @@ import "github.com/spf13/cobra"
 
 var (
 	configCmd = &cobra.Command{
-		Use: "config",
+		Use:   "config",
+		Short: "Provides sub commands around config for this cli tool",
 	}
 )
 
