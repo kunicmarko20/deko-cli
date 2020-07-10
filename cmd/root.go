@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"fmt"
+	"github.com/kunicmarko20/deko-cli/util"
 	"os"
 
 	homedir "github.com/mitchellh/go-homedir"
@@ -26,15 +26,10 @@ func init() {
 	rootCmd.AddCommand(releaseCmd)
 }
 
-func er(msg interface{}) {
-	fmt.Println("Error:", msg)
-	os.Exit(1)
-}
-
 func initConfig() {
 	home, err := homedir.Dir()
 	if err != nil {
-		er(err)
+		util.Exit(err)
 	}
 
 	viper.AddConfigPath(home)
@@ -46,6 +41,6 @@ func initConfig() {
 	}
 
 	if err := viper.ReadInConfig(); err != nil {
-		er(err)
+		util.Exit(err)
 	}
 }

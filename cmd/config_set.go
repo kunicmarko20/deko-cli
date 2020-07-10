@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"fmt"
+	"github.com/kunicmarko20/deko-cli/util"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
@@ -15,7 +16,7 @@ var (
 			err := viper.WriteConfig()
 
 			if err != nil {
-				er(err)
+				util.Exit(err)
 			}
 
 			fmt.Println("successfully set config with key: " + args[0])
