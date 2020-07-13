@@ -11,7 +11,7 @@ import (
 
 type GithubClient struct {
 	owner      string
-	repository string
+	Repository string
 	client     *github.Client
 	ctx        context.Context
 }
@@ -22,7 +22,7 @@ func NewGithubClient() *GithubClient {
 
 	return &GithubClient{
 		owner:      ow,
-		repository: repo,
+		Repository: repo,
 		ctx:        ctx,
 		client:     newInnerClient(ctx),
 	}
@@ -61,7 +61,7 @@ func (gc *GithubClient) CreateReleasePullRequest(pb ProgressBar, rlsDate string,
 	pr, _, err := gc.client.PullRequests.Create(
 		gc.ctx,
 		gc.owner,
-		gc.repository,
+		gc.Repository,
 		&github.NewPullRequest{
 			Title:               &prTitle,
 			Head:                &rlsBranch,
@@ -84,7 +84,7 @@ func (gc *GithubClient) UpdateReleasePullRequestBodyWithTickets(pb ProgressBar, 
 	_, _, err := gc.client.PullRequests.Edit(
 		gc.ctx,
 		gc.owner,
-		gc.repository,
+		gc.Repository,
 		prNum,
 		&github.PullRequest{
 			Body: gc.newPullRequestBodyFromCommits(prNum),
@@ -98,7 +98,7 @@ func (gc *GithubClient) UpdateReleasePullRequestBodyWithTickets(pb ProgressBar, 
 }
 
 func (gc *GithubClient) newPullRequestBodyFromCommits(prNum int) *string {
-	cmts, _, err := gc.client.PullRequests.ListCommits(gc.ctx, gc.owner, gc.repository, prNum, nil)
+	cmts, _, err := gc.client.PullRequests.ListCommits(gc.ctx, gc.owner, gc.Repository, prNum, nil)
 	if err != nil {
 		Exit(err)
 	}

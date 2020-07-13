@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"fmt"
+	"github.com/Songmu/prompter"
 	"github.com/kunicmarko20/deko-cli/util"
 	"github.com/spf13/cobra"
 	"github.com/toqueteos/webbrowser"
@@ -31,6 +32,10 @@ func NewReleaseCommand() *ReleaseCommand {
 func (r *ReleaseCommand) Run(cmd *cobra.Command, args []string) {
 	//Needs to be initialized here because config gets loaded at this point
 	r.c = util.NewGithubClient()
+
+	if !prompter.YN(fmt.Sprintf("You are about to do a release for '%s' repository, are you sure?", r.c.Repository), true) {
+		return
+	}
 
 	rlsDate := time.Now().Format("20060102")
 	rlsBranch := "release-" + rlsDate

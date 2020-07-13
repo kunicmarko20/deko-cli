@@ -3,6 +3,7 @@ module github.com/kunicmarko20/deko-cli
 go 1.14
 
 require (
+	github.com/Songmu/prompter v0.3.0
 	github.com/go-openapi/strfmt v0.19.5 // indirect
 	github.com/google/go-github v17.0.0+incompatible
 	github.com/google/go-querystring v1.0.0 // indirect
